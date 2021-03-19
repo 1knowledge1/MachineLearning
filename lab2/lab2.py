@@ -9,8 +9,8 @@ def detect_shape(contour):
         shape = "triangle"
     elif len(approx) == 4:
         (x, y, w, h) = cv2.boundingRect(approx)
-        ar = w / float(h)
-        if ar == 1:
+        ratio = w / float(h)
+        if ratio == 1:
             shape = "square"
         else:
             shape = "rectangle"
