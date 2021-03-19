@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 from enum import Enum
 import random
-import os
+import os  
 
 
 class Figure(Enum):
@@ -41,14 +41,6 @@ def place_shapes(img, height, width):
                 p2_y = random.randint(min_y, min_y + area_height // 2 - (min_radius // 3))
                 p3_x = random.randint(min_x + area_width // 2 - min_radius, min_x + area_width // 2 + min_radius)
                 p3_y = random.randint(min_y + 3 * (area_height // 4), max_y)
-                # p3_x = random.randint(min_x, max_x)
-                # p3_y = random.randint(min_y + area_height // 2, max_y)
-                # p1_x = min_x + 50
-                # p1_y = min_y + 112
-                # p2_x = min_x + 50
-                # p2_y = min_y + 75
-                # p3_x = min_x + 100
-                # p3_y = min_y
                 create_triangle(img, [(p1_x, p1_y), (p2_x, p2_y), (p3_x, p3_y)], get_rand_color())
             elif choice == Figure.SQUARE:
                 length = random.randint(2 * min_radius, area_height // np.sqrt(2) - 2)
