@@ -17,6 +17,8 @@ def get_rand_color():
     r = random.randint(0, 255)
     g = random.randint(0, 255)
     b = random.randint(0, 255)
+    if r < 25 and g < 25 and b < 25:
+        r = random.randint(75, 255)
     return r, g, b
 
 
@@ -33,12 +35,20 @@ def place_shapes(img, height, width):
             max_y = (i + 1) * area_height
             choice = random.choice(list(Figure))
             if choice == Figure.TRIANGLE:
-                p1_x = random.randint(min_x, min_x + area_width // 2 - (min_radius // 3))
+                p1_x = random.randint(min_x, min_x + area_width // 2 - min_radius)
                 p1_y = random.randint(min_y, min_y + area_height // 2 - (min_radius // 3))
-                p2_x = random.randint(min_x + area_width // 2 + (min_radius // 3), max_x)
+                p2_x = random.randint(min_x + area_width // 2 + min_radius, max_x)
                 p2_y = random.randint(min_y, min_y + area_height // 2 - (min_radius // 3))
-                p3_x = random.randint(min_x, max_x)
-                p3_y = random.randint(min_y + area_height // 2, max_y)
+                p3_x = random.randint(min_x + area_width // 2 - min_radius, min_x + area_width // 2 + min_radius)
+                p3_y = random.randint(min_y + 3 * (area_height // 4), max_y)
+                # p3_x = random.randint(min_x, max_x)
+                # p3_y = random.randint(min_y + area_height // 2, max_y)
+                # p1_x = min_x + 50
+                # p1_y = min_y + 112
+                # p2_x = min_x + 50
+                # p2_y = min_y + 75
+                # p3_x = min_x + 100
+                # p3_y = min_y
                 create_triangle(img, [(p1_x, p1_y), (p2_x, p2_y), (p3_x, p3_y)], get_rand_color())
             elif choice == Figure.SQUARE:
                 length = random.randint(2 * min_radius, area_height // np.sqrt(2) - 2)
@@ -106,20 +116,20 @@ def generate_images(number, image_height, image_width):
 
 
 if __name__ == '__main__':
-    MAX_NUMBER = 20
+    MAX_NUMBER_OF_PICTURE = 20
     IMAGE_HEIGHT = 600
     IMAGE_WIDTH = 600
 
     correct_input = False
     while not correct_input:
-        print('Введите количество изображений (1 - {0}): '.format(MAX_NUMBER), end='')
-        number = input()
-        if number.isdigit():
-            number = int(number)
-            if number and number <= MAX_NUMBER:
-                generate_images(number, IMAGE_HEIGHT, IMAGE_WIDTH)
+        print('Введите количество изображений (1 - {0}): '.format(MAX_NUMBER_OF_PICTURE), end='')
+        number_of_picture = input()
+        if number_of_picture.isdigit():
+            number_of_picture = int(number_of_picture)
+            if number_of_picture and number_of_picture <= MAX_NUMBER_OF_PICTURE:
+                generate_images(number_of_picture, IMAGE_HEIGHT, IMAGE_WIDTH)
                 correct_input = True
             else:
-                print('Число должно находиться в интервале от 1 до {0}.'.format(MAX_NUMBER))
+                print('Число должно находиться в интервале от 1 до {0}.'.format(MAX_NUMBER_OF_PICTURE))
         else:
-            print('Некорректный ввод. Введите число от 1 до {0}.'.format(MAX_NUMBER))
+            print('Некорректный ввод. Введите число от 1 до {0}.'.format(MAX_NUMBER_OF_PICTURE))
